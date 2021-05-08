@@ -1,12 +1,21 @@
 import styled from "styled-components";
 import { SearchInput } from "../molecules/SearchInput";
 import { UserCard } from "../organism/user/UserCard";
+import { SecondaryButton } from "../atom/button/SecondaryButton";
+import { memo, useContext } from "react";
+import { UserContext } from "../../providers/UserProvider";
 
-export const Users = () => {
+export const Users = memo(() => {
+  const { userInfo, setUserInfo } = useContext(UserContext);
+  const onClickSwitch = () => {
+    setUserInfo({ isAdmin: !userInfo.isAdmin });
+  };
   return (
     <SContainer>
       <h2>Users</h2>
       <SearchInput />
+      <br />
+      <SecondaryButton onClick={onClickSwitch}>切り替え</SecondaryButton>
       <SUserArea>
         {users.map((user) => (
           <UserCard key={user.id} user={user} />
@@ -14,7 +23,7 @@ export const Users = () => {
       </SUserArea>
     </SContainer>
   );
-};
+});
 
 const SContainer = styled.div`
   display: flex;
