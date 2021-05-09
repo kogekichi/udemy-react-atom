@@ -2,11 +2,14 @@ import styled from "styled-components";
 import { SearchInput } from "../molecules/SearchInput";
 import { UserCard } from "../organism/user/UserCard";
 import { SecondaryButton } from "../atom/button/SecondaryButton";
-import { memo, useContext } from "react";
-import { UserContext } from "../../providers/UserProvider";
+import { memo } from "react";
+// import { UserContext } from "../../providers/UserProvider";
+import { useRecoilState } from "recoil";
+import { userState } from "../../store/userState";
 
 export const Users = memo(() => {
-  const { userInfo, setUserInfo } = useContext(UserContext);
+  // const { userInfo, setUserInfo } = useContext(UserContext);
+  const [userInfo, setUserInfo] = useRecoilState(userState);
   const onClickSwitch = () => {
     setUserInfo({ isAdmin: !userInfo.isAdmin });
   };
